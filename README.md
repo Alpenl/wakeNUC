@@ -1,52 +1,113 @@
-## 请求方式
+# WakeNUC
 
-1. 在 `utils/api.js` 中，请求首先通过 `sign_data` 函数进行签名：
+基于 uni-app 和 Vue 3 的跨平台应用开发模板，支持多端开发。
 
-```javascript:utils/api.js
-function sign_data(url, params, key) {
-  params.ts = Date.now();
-  params.key = key;
-  const list = [];
-  for (let i in params) {
-    list.push(i + '=' + encodeURIComponent(params[i]));
-  }
-  list.sort();
-  params.sign = md5.hexMD5('/' + encodeURI(url) + list.join('&') + 'app_secret');
-  return params;
-}
+## 项目特点
+
+- 🚀 基于 Vue 3、Vite、TypeScript、uni-app
+- 📱 支持多端开发（H5、小程序、App）
+- 🎨 集成 UnoCSS 原子化 CSS
+- 📦 使用 pnpm 包管理器
+- 🔍 ESLint + Prettier + Stylelint 代码规范
+- 🌟 自动导入 API
+- 🔄 状态管理：Pinia
+- 📝 Git Commit 规范化
+- 🎯 Vue Query 数据请求管理
+- 🎁 Wot Design Uni UI 组件库
+
+## 技术栈
+
+- 核心框架：Vue 3.4.x + TypeScript
+- 构建工具：Vite 5.x
+- UI 框架：Wot Design Uni
+- 状态管理：Pinia
+- 数据请求：Vue Query
+- CSS 框架：UnoCSS
+- 代码规范：ESLint + Prettier + Stylelint
+- Git 规范：Husky + Commitlint
+
+## 开发环境要求
+
+- Node.js >= 18
+- pnpm >= 7.30
+
+## 快速开始
+
+```bash
+# 安装依赖
+pnpm install
+
+# 开发
+# H5
+pnpm dev:h5
+
+# 微信小程序
+pnpm dev:mp-weixin
+
+# App
+pnpm dev:app
+
+# 打包
+# H5
+pnpm build:h5
+
+# 微信小程序
+pnpm build:mp-weixin
+
+# App
+pnpm build:app
 ```
 
-签名过程包括:
-- 添加时间戳 ts 和 key 参数
-- 将所有参数按键值对格式化并排序
-- 使用 MD5 对 URL、参数和密钥进行哈希
+## 项目结构
 
-2. 对于 POST 请求，签名参数会被附加到 URL 中:
-
-```javascript:utils/api.js
-url: aprUrl + 
-  option.url +
-  (option.method == 'POST' 
-    ? '?key=' + data.key + '&ts=' + data.ts + '&sign=' + data.sign 
-    : '')
+```
+├── src/
+│   ├── components/     # 公共组件
+│   ├── pages/         # 页面
+│   ├── store/         # Pinia 状态管理
+│   ├── service/       # 服务层
+│   ├── utils/         # 工具函数
+│   ├── hooks/         # 组合式函数
+│   ├── static/        # 静态资源
+│   ├── style/         # 全局样式
+│   ├── types/         # 类型定义
+│   └── App.vue        # 入口组件
+├── vite.config.ts     # Vite 配置
+├── uno.config.ts      # UnoCSS 配置
+├── tsconfig.json      # TypeScript 配置
+└── package.json       # 项目配置
 ```
 
-3. 对于 GET 请求，签名参数会被包含在请求数据中:
+## 代码规范
 
-```javascript:utils/api.js
-data: option.method == 'POST' ? option.data : data
-```
+项目集成了以下代码规范工具：
 
-主要安全特点:
+- ESLint：JavaScript/TypeScript 代码检查
+- Prettier：代码格式化
+- Stylelint：CSS/SCSS 代码检查
+- Commitlint：Git 提交信息规范
 
-1. 使用时间戳防止重放攻击
-2. 对参数进行排序以确保签名一致性
-3. 使用 MD5 哈希算法加密
-4. 包含密钥(key)进行身份验证
-5. URL 编码防止特殊字符问题
+## 支持平台
 
-这种签名机制可以:
-- 验证请求的完整性
-- 防止请求被篡改
-- 提供基本的身份认证
-- 防止重放攻击
+- H5
+- 微信小程序
+- 支付宝小程序
+- 百度小程序
+- 字节跳动小程序
+- QQ小程序
+- 快手小程序
+- 飞书小程序
+- App（Android/iOS）
+
+## 开发规范
+
+请参考以下规范进行开发：
+
+- 遵循 Vue 3 组合式 API 风格
+- 使用 TypeScript 编写代码
+- 遵循 ESLint 和 Prettier 配置的代码风格
+- 遵循 Git Commit 规范
+
+## 许可证
+
+[MIT](LICENSE)
